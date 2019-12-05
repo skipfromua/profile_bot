@@ -88,7 +88,7 @@ def change_gender(message):
     bot.send_message(message.chat.id, "Хотите изменить пол?", reply_markup=keyboard)
 
 def conformation(message, gender):
-    bot.send_message(message.chat.id, "Хотите изменить пол?", reply_markup=keyboard)
+    bot.send_message(message.chat.id, "я тут")
     if gender == "Мужчина":
         users_db.update({ "gender": gender }, { "$set": { "gender": "Женщина" } })
     else:
