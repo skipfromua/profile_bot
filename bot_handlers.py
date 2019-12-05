@@ -93,6 +93,7 @@ def conformation(message, gender):
         users_db.update({ "gender": gender }, { "$set": { "gender": "Женщина" } })
     else:
         users_db.update({ "gender": gender }, { "$set": { "gender": "Мужчина" } })
+    main_menu(message)
 
 """
 @bot.callback_query_handler(func=lambda call: True)
