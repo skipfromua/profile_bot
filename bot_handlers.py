@@ -95,14 +95,10 @@ def conformation(gender):
     else:
         users_db.update({ "gender": gender }, { "$set": { "gender": "Мужчина" } })
 
-
+"""
 @bot.callback_query_handler(func=lambda call: True)
 def callback_inline(call):
-    our_db_table = {}
-    for x in users_db.find():
-        if x['chat_id'] == call.message.chat.id:
-            our_db_table = x
-            break
+
     if call.message:
         if call.data == "change_name":
             change_name(call.message, our_db_table)
@@ -113,19 +109,11 @@ def callback_inline(call):
         elif call.data == "confirm":
             conformation(our_db_table['gender'])
             main_menu(call.message)
-        elif call.data == "male_gender":
-            our_db_table['gender'] = 'Мужчина'
-            users_db.update({"gender": None}, {"$set": {"gender": our_db_table['gender']}})
-            main_menu(call.message)
-        elif call.data == "female_gender":
-            our_db_table['gender'] = 'Женщина'
-            users_db.update({"gender": None}, {"$set": {"gender": our_db_table['gender']}})
-            main_menu(call.message)
         elif call.data == "cancel":
             if not our_db_table['age']:
                 age = our_db_table['forbidden_ages'].split(", ")[-1]
                 users_db.update({'age': our_db_table['age']}, {"$set": {"age": age}})
-            main_menu(call.message)
+            main_menu(call.message)"""
 
 
 @bot.message_handler(commands=['who'])
@@ -171,6 +159,12 @@ def catcher_of_text(message):
         enter_age(message, our_db_table)
     elif not our_db_table['gender']:
         enter_gender(message)
+    elif message.text == "Изменить имя":
+        change_name(message, our_db_table)
+    elif message.text == "Изменить возраст":
+        change_age(message, our_db_table)
+    elif message.text == "Изменить пол":
+        change_gender(message)
 
 
 
