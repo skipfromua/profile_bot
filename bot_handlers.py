@@ -120,9 +120,12 @@ def callback_inline(call):
             main_menu(call.message)
 
 
-@bot.message_handler(commands=['work'])
+@bot.message_handler(commands=['who'])
 def delete(message):
-    bot.send_message(message.chat.id, 'Ну я хотя бы работаю')
+    for db in users_db.find():
+        if db['chat_id'] == message.chat.id:
+            bot.send_message(message.chat.id, 'Имя: {}, возраст: {}, пол: {}'.format(db['name'], db['age'], db['gender']))
+            break
 
 @bot.message_handler(commands=['del'])
 def delete(message):
