@@ -49,6 +49,7 @@ def enter_gender(message):
                 fill_place = db_table.copy()
                 fill_place['gender'] = message.text
         users_db.update_one(db_table, { "$set": fill_place })
+        main_menu(message)
     else:
         bot.send_message(message.chat.id, "Укажите ваш пол:", reply_markup=keyboard)
 
