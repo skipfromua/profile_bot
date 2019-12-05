@@ -32,12 +32,14 @@ def enter_age(message, our_db_table):
             return
 
     if not our_db_table['gender']:
-        enter_gender(message, our_db_table)
+        enter_gender(message)
     else:
         main_menu(message)
 
 
-def enter_gender(message, our_db_table):
+def enter_gender(message):
+    if message.text == '' or message.text == '':
+        users_db.update_one({ 'gender': None }, { "$set": { "gende": message.text } })
     keyboard = types.ReplyKeyboardMarkup()
     keyboard.row('Мужской', 'Женский')
     bot.send_message(message.chat.id, "Укажите ваш пол?", reply_markup=keyboard)
@@ -160,7 +162,7 @@ def catcher_of_text(message):
     elif not our_db_table['age']:
         enter_age(message, our_db_table)
     elif not our_db_table['gender']:
-        enter_gender(message, our_db_table)
+        enter_gender(message)
 
 
 
