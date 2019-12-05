@@ -4,7 +4,9 @@ from db import users_db
 
 
 def enter_name(message, our_db_table):
-    our_db_table['name'] = message.text
+    if message.text != "Отмена":
+        our_db_table['name'] = message.text
+        our_db_table['temp_name'] = message.text
     for db in users_db.find():
         if db['chat_id'] == message.chat.id:
             users_db.update_one(db, {"$set": our_db_table})
@@ -12,7 +14,7 @@ def enter_name(message, our_db_table):
     if message.text == 'Отмена':
         for db in users_db.find():
             if db['chat_id'] == message.chat.id:
-                bot.send_message(message.chat.id, db)
+                our_db_table['name'] = our_db_table['temp_name']
                 users_db.update_one(db, { "$set": our_db_table })
                 break
         main_menu(message)
@@ -131,6 +133,7 @@ def send_welcome(message):
                 "age": None,
                 "gender": None,
                 "forbidden_ages": "",
+                "temp_name": None
             }
         )
         bot.send_message(message.chat.id, 'Введите имя:', reply_markup=keyboard)
