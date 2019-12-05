@@ -47,7 +47,7 @@ def enter_age(message, our_db_table):
 
 
 def enter_gender(message):
-    keyboard = types.ReplyKeyboardMarkup()
+    keyboard = types.ReplyKeyboardMarkup(True)
     keyboard.row('Мужской', 'Женский')
     if message.text == 'Мужской' or message.text == 'Женский':
         db_table = {}
@@ -64,7 +64,7 @@ def enter_gender(message):
 
 
 def main_menu(message):
-    keyboard = types.ReplyKeyboardMarkup()
+    keyboard = types.ReplyKeyboardMarkup(True)
     keyboard.row('Изменить имя')
     keyboard.row('Изменить возраст')
     keyboard.row('Изменить пол')
