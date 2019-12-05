@@ -160,6 +160,9 @@ def catcher_of_text(message):
         enter_name(message, our_db_table)
     elif not our_db_table['age']:
         enter_age(message, our_db_table)
+    elif not our_db_table['gender']:
+        enter_gender(message, our_db_table)
+
 
 
 if __name__ == '__main__':
