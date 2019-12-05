@@ -3,24 +3,17 @@ from bot import bot  # Импортируем объект бота
 from db import users_db
 
 
-global Last_name
+Last_name = ''
 
 
 
-def enter_name(message, our_db_table, name=None):
+def enter_name(message, our_db_table):
     our_db_table['name'] = message.text
     for db in users_db.find():
         if db['chat_id'] == message.chat.id:
             users_db.update_one(db, {"$set": our_db_table})
             break
-    if message.text == 'Отмена':
-        bot.send_message(message.chat.id, name)
-        for db in users_db.find():
-            if db['chat_id'] == message.chat.id:
-                users_db.update_one(db, { "$set": our_db_table })
-                break
-        main_menu(message)
-    elif not our_db_table['age']:
+    if not our_db_table['age']:
         bot.send_message(message.chat.id, 'Введите ваш возраст')
     else:
         main_menu(message)
@@ -74,16 +67,20 @@ def main_menu(message):
     keyboard.row('Изменить пол')
     bot.send_message(message.chat.id, "Главное меню:", reply_markup=keyboard)
 
-
-def change_name(message, our_db_table):
-    global Last_name
+def pre_change_name(message, out_db_table):
     keyboard = types.ReplyKeyboardMarkup(True)
     keyboard.row("Отмена")
-    Last_name = our_db_table['name']
+    bot.send_message(message.chat.id, 'Введите имя:', reply_markup=keyboard)
+    if message.text == "Отмена":
+        main_menu(message)
+    else:
+        change_name(out_db_table)
+
+def change_name(our_db_table):
     our_db = our_db_table.copy()
     our_db['name'] = None
     users_db.update(our_db_table, { "$set": our_db })
-    bot.send_message(message.chat.id, 'Введите имя:', reply_markup=keyboard)
+
 
 
 def change_age(message, our_db_table):
@@ -159,7 +156,7 @@ def catcher_of_text(message):
     elif not our_db_table['gender']:
         enter_gender(message)
     elif message.text == "Изменить имя":
-        change_name(message, our_db_table)
+        pre_change_name(message, our_db_table)
     elif message.text == "Изменить возраст":
         change_age(message, our_db_table)
     elif message.text == "Изменить пол":
