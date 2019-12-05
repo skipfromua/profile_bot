@@ -77,14 +77,14 @@ def main_menu(message):
 
 
 def change_name(message, our_db_table):
+    global Last_name
     keyboard = types.ReplyKeyboardMarkup(True)
     keyboard.row("Отмена")
-    last_name = our_db_table['name']
+    Last_name = our_db_table['name']
     our_db = our_db_table.copy()
     our_db['name'] = None
     users_db.update(our_db_table, { "$set": our_db })
     bot.send_message(message.chat.id, 'Введите имя:', reply_markup=keyboard)
-    return last_name
 
 
 def change_age(message, our_db_table):
@@ -160,7 +160,7 @@ def catcher_of_text(message):
     elif not our_db_table['gender']:
         enter_gender(message)
     elif message.text == "Изменить имя":
-        Last_name = change_name(message, our_db_table)
+        change_name(message, our_db_table)
     elif message.text == "Изменить возраст":
         change_age(message, our_db_table)
     elif message.text == "Изменить пол":
