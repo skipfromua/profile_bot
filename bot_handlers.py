@@ -87,6 +87,7 @@ def change_gender(message):
     keyboard.row('Отмена')
     bot.send_message(message.chat.id, "Хотите изменить пол?", reply_markup=keyboard)
 
+
 def conformation(message, gender):
     bot.send_message(message.chat.id, "я тут")
     if gender == "Мужчина":
@@ -94,26 +95,6 @@ def conformation(message, gender):
     else:
         users_db.update({ "gender": gender }, { "$set": { "gender": "Мужчина" } })
     main_menu(message)
-
-"""
-@bot.callback_query_handler(func=lambda call: True)
-def callback_inline(call):
-
-    if call.message:
-        if call.data == "change_name":
-            change_name(call.message, our_db_table)
-        elif call.data == "change_age":
-            change_age(call.message, our_db_table)
-        elif call.data == "change_gender":
-            change_gender(call.message)
-        elif call.data == "confirm":
-            conformation(our_db_table['gender'])
-            main_menu(call.message)
-        elif call.data == "cancel":
-            if not our_db_table['age']:
-                age = our_db_table['forbidden_ages'].split(", ")[-1]
-                users_db.update({'age': our_db_table['age']}, {"$set": {"age": age}})
-            main_menu(call.message)"""
 
 
 @bot.message_handler(commands=['who'])
@@ -125,6 +106,8 @@ def delete(message):
 
 @bot.message_handler(commands=['del'])
 def delete(message):
+    keyboard = types.ReplyKeyboardRemove()
+    bot.send_message(message.chat.id, 'Cleared', reply_markup=keyboard)
     users_db.delete_many({})
 
 
