@@ -137,6 +137,7 @@ def delete(message):
 @bot.message_handler(commands=['start'])
 # Выполняется, когда пользователь нажимает на start
 def send_welcome(message):
+    keyboard = types.ReplyKeyboardRemove()
     if not users_db.find_one({ "chat_id": message.chat.id }):
         users_db.insert_one(
             {
@@ -147,7 +148,7 @@ def send_welcome(message):
                 "forbidden_ages": "",
             }
         )
-        bot.send_message(message.chat.id, 'Введите имя:')
+        bot.send_message(message.chat.id, 'Введите имя:', reply_markup=keyboard)
     else:
         main_menu(message)
 
