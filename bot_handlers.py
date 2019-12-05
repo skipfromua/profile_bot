@@ -84,7 +84,7 @@ def change_age(message, our_db_table):
 def change_gender(message):
     keyboard = types.ReplyKeyboardMarkup()
     keyboard.row('Сменить')
-    keyboard.row('Отменить')
+    keyboard.row('Отмена')
     bot.send_message(message.chat.id, "Хотите изменить пол?", reply_markup=keyboard)
 
 def conformation(gender):
