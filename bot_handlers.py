@@ -42,13 +42,13 @@ def enter_gender(message):
     keyboard.row('Мужской', 'Женский')
     if message.text == 'Мужской' or message.text == 'Женский':
         db_table = {}
-        free_place = {}
+        fill_place = {}
         for x in users_db.find():
             if x['chat_id'] == message.chat.id:
                 db_table = x
-                free_place = db_table.copy()
-                free_place['gender'] = None
-        users_db.update_one(free_place, { "$set": db_table })
+                fill_place = db_table.copy()
+                fill_place['gender'] = message.text
+        users_db.update_one(db_table, { "$set": fill_place })
     else:
         bot.send_message(message.chat.id, "Укажите ваш пол:", reply_markup=keyboard)
 
