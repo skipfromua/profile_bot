@@ -25,10 +25,14 @@ def enter_age(message, our_db_table):
                 users_db.update_one(db, {"$set": our_db_table})
                 break
     else:
-        bot.send_message(message.chat.id, 'Вы ввели невалидный возраст, попробуйте снова:')
-        if not our_db_table['age']:
+        if message.text == 'Отмена':
             age = our_db_table['forbidden_ages'].split(", ")[-1]
-            users_db.update({ 'age': our_db_table['age'] }, { "$set": { "age": age } })
+            users_db.update({ 'age': our_db_table['age'] }, { "$set": { "age": age}})
+            main_menu(message)
+
+        bot.send_message(message.chat.id, 'Вы ввели невалидный возраст, попробуйте снова:')
+
+        if not our_db_table['age']:
             return
 
     if not our_db_table['gender']:
