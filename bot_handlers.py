@@ -29,6 +29,8 @@ def enter_age(message, our_db_table):
         if not our_db_table['age']:
             age = our_db_table['forbidden_ages'].split(", ")[-1]
             users_db.update({ 'age': our_db_table['age'] }, { "$set": { "age": age } })
+            enter_age(message, our_db_table)
+
 
     if not our_db_table['gender']:
         enter_gender(message)
@@ -36,13 +38,10 @@ def enter_age(message, our_db_table):
         main_menu(message)
 
 
-def enter_gender(message):
+def enter_gender(message, Our_db_table):
     keyboard = types.ReplyKeyboardMarkup()
-    male_button = types.InlineKeyboardButton(text="Мужской", callback_data="male_gender")
-    female_age_button = types.InlineKeyboardButton(text="Женский", callback_data="female_gender")
-    keyboard.add(male_button)
-    keyboard.add(female_age_button)
-    bot.send_message(message.chat.id, "Какой ваш пол?", reply_markup=keyboard)
+    keyboard.row('Мужской', 'Женский')
+    bot.send_message(message.chat.id, "Укажите ваш пол?", reply_markup=keyboard)
 
 
 def main_menu(message):
@@ -65,7 +64,7 @@ def change_name(message, our_db_table):
 
 def change_age(message, our_db_table):
     keyboard = types.ReplyKeyboardMarkup()
-    cancel_button = types.InlineKeyboardButton(text="Отмена", callback_data="cancel")
+    cancel_button = types.KeyboardButton(text="Отмена", callback_data="cancel")
     keyboard.add(cancel_button)
     our_db = our_db_table.copy()
     our_db['age'] = None
