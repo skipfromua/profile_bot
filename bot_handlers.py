@@ -3,10 +3,6 @@ from bot import bot  # Импортируем объект бота
 from db import users_db
 
 
-
-
-
-
 def enter_name(message, our_db_table):
     our_db_table['name'] = message.text
     for db in users_db.find():
