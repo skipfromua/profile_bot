@@ -29,7 +29,7 @@ def enter_age(message, our_db_table):
         if not our_db_table['age']:
             age = our_db_table['forbidden_ages'].split(", ")[-1]
             users_db.update({ 'age': our_db_table['age'] }, { "$set": { "age": age } })
-            enter_age(message, our_db_table)
+            return
 
 
     if not our_db_table['gender']:
