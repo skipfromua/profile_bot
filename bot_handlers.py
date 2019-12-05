@@ -31,14 +31,13 @@ def enter_age(message, our_db_table):
             users_db.update({ 'age': our_db_table['age'] }, { "$set": { "age": age } })
             return
 
-
     if not our_db_table['gender']:
-        enter_gender(message)
+        enter_gender(message, our_db_table)
     else:
         main_menu(message)
 
 
-def enter_gender(message, Our_db_table):
+def enter_gender(message, our_db_table):
     keyboard = types.ReplyKeyboardMarkup()
     keyboard.row('Мужской', 'Женский')
     bot.send_message(message.chat.id, "Укажите ваш пол?", reply_markup=keyboard)
