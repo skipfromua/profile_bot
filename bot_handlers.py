@@ -3,6 +3,10 @@ from bot import bot  # Импортируем объект бота
 from db import users_db
 
 
+global Last_name
+
+
+
 def enter_name(message, our_db_table, name=None):
     our_db_table['name'] = message.text
     for db in users_db.find():
@@ -11,6 +15,7 @@ def enter_name(message, our_db_table, name=None):
             break
     if message.text == 'Отмена':
         our_db_table["name"] = name
+        bot.send_message(message.chat.id, name)
         for db in users_db.find():
             if db['chat_id'] == message.chat.id:
                 users_db.update_one(db, { "$set": our_db_table })
@@ -72,7 +77,7 @@ def main_menu(message):
 
 
 def change_name(message, our_db_table):
-    keyboard = types.ReplyKeyboardMarkup()
+    keyboard = types.ReplyKeyboardMarkup(True)
     keyboard.row("Отмена")
     last_name = our_db_table['name']
     our_db = our_db_table.copy()
@@ -83,7 +88,7 @@ def change_name(message, our_db_table):
 
 
 def change_age(message, our_db_table):
-    keyboard = types.ReplyKeyboardMarkup()
+    keyboard = types.ReplyKeyboardMarkup(True)
     keyboard.row("Отмена")
     our_db = our_db_table.copy()
     our_db['age'] = None
@@ -92,7 +97,7 @@ def change_age(message, our_db_table):
 
 
 def change_gender(message):
-    keyboard = types.ReplyKeyboardMarkup()
+    keyboard = types.ReplyKeyboardMarkup(True)
     keyboard.row('Сменить')
     keyboard.row('Отмена')
     bot.send_message(message.chat.id, "Хотите изменить пол?", reply_markup=keyboard)
@@ -142,20 +147,20 @@ def send_welcome(message):
 
 @bot.message_handler(content_types=['text'])
 def catcher_of_text(message):
-    global last_name
+    global Last_name
     our_db_table = {}
     for db in users_db.find():
         if db['chat_id'] == message.chat.id:
             our_db_table = db
             break
     if not our_db_table['name']:
-        enter_name(message, our_db_table, last_name)
+        enter_name(message, our_db_table, Last_name)
     elif not our_db_table['age']:
         enter_age(message, our_db_table)
     elif not our_db_table['gender']:
         enter_gender(message)
     elif message.text == "Изменить имя":
-        last_name = change_name(message, our_db_table)
+        Last_name = change_name(message, our_db_table)
     elif message.text == "Изменить возраст":
         change_age(message, our_db_table)
     elif message.text == "Изменить пол":
