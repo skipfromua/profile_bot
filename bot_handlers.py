@@ -39,7 +39,7 @@ def enter_age(message, our_db_table):
 
 def enter_gender(message):
     if message.text == 'Мужской' or message.text == 'Женский':
-        users_db.update_one({ 'gender': None }, { "$set": { "gende": message.text } })
+        users_db.update_one({ 'gender': None }, { "$set": { "gender": message.text } })
     keyboard = types.ReplyKeyboardMarkup()
     keyboard.row('Мужской', 'Женский')
     bot.send_message(message.chat.id, "Укажите ваш пол?", reply_markup=keyboard)
