@@ -30,9 +30,7 @@ def enter_age(message, our_db_table):
             users_db.update({ 'age': our_db_table['age'] }, { "$set": { "age": age}})
             main_menu(message)
 
-
-
-        if not our_db_table['age']:
+        if not our_db_table['age'] and message.text != "Отмена":
             bot.send_message(message.chat.id, 'Вы ввели невалидный возраст, попробуйте снова:')
             return
 
