@@ -69,7 +69,7 @@ def pre_change_name(message, out_db_table):
     bot.send_message(message.chat.id, 'Введите имя:', reply_markup=keyboard)
     if message.text == "Отмена":
         main_menu(message)
-    else:
+    elif message.text != "Изменить имя":
         bot.send_message(message.chat.id, message.text)
         change_name(out_db_table)
 
