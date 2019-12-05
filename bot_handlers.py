@@ -38,11 +38,19 @@ def enter_age(message, our_db_table):
 
 
 def enter_gender(message):
-    if message.text == 'Мужской' or message.text == 'Женский':
-        users_db.update_one({ 'gender': None }, { "$set": { "gender": message.text } })
     keyboard = types.ReplyKeyboardMarkup()
     keyboard.row('Мужской', 'Женский')
-    bot.send_message(message.chat.id, "Укажите ваш пол?", reply_markup=keyboard)
+    if message.text == 'Мужской' or message.text == 'Женский':
+        db_table = {}
+        free_place = {}
+        for x in users_db.find():
+            if x['chat_id'] == message.chat.id:
+                db_table = x
+                free_place = db_table.copy()
+                free_place['gender'] = None
+        users_db.update_one(free_place, { "$set": db_table })
+    else:
+        bot.send_message(message.chat.id, "Укажите ваш пол:", reply_markup=keyboard)
 
 
 def main_menu(message):
