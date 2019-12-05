@@ -59,12 +59,9 @@ def enter_gender(message):
 
 def main_menu(message):
     keyboard = types.ReplyKeyboardMarkup()
-    change_name_button = types.InlineKeyboardButton(text="Изменить имя", callback_data="change_name")
-    change_age_button = types.InlineKeyboardButton(text="Изменить возраст", callback_data="change_age")
-    change_gender_button = types.InlineKeyboardButton(text="Изменить пол", callback_data="change_gender")
-    keyboard.add(change_name_button)
-    keyboard.add(change_age_button)
-    keyboard.add(change_gender_button)
+    keyboard.row('Изменить имя')
+    keyboard.row('Изменить возраст')
+    keyboard.row('Изменить пол')
     bot.send_message(message.chat.id, "Главное меню:", reply_markup=keyboard)
 
 
@@ -87,10 +84,8 @@ def change_age(message, our_db_table):
 
 def change_gender(message):
     keyboard = types.ReplyKeyboardMarkup()
-    confirm_button = types.InlineKeyboardButton(text="Сменить", callback_data="confirm")
-    cancel_button = types.InlineKeyboardButton(text="Отмена", callback_data="cancel")
-    keyboard.add(confirm_button)
-    keyboard.add(cancel_button)
+    keyboard.row('Сменить')
+    keyboard.row('Отменить')
     bot.send_message(message.chat.id, "Хотите изменить пол?", reply_markup=keyboard)
 
 def conformation(gender):
@@ -172,6 +167,8 @@ def catcher_of_text(message):
         change_gender(message)
     elif message.text == "Отмена":
         main_menu(message)
+    elif message.text == "Сменить":
+        conformation(our_db_table['gender'])
 
 
 
