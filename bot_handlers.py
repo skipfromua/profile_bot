@@ -3,10 +3,6 @@ from bot import bot  # Импортируем объект бота
 from db import users_db
 
 
-Last_name = ''
-
-
-
 def enter_name(message, our_db_table):
     our_db_table['name'] = message.text
     for db in users_db.find():
@@ -143,14 +139,13 @@ def send_welcome(message):
 
 @bot.message_handler(content_types=['text'])
 def catcher_of_text(message):
-    global Last_name
     our_db_table = {}
     for db in users_db.find():
         if db['chat_id'] == message.chat.id:
             our_db_table = db
             break
     if not our_db_table['name']:
-        enter_name(message, our_db_table, Last_name)
+        enter_name(message, our_db_table)
     elif not our_db_table['age']:
         enter_age(message, our_db_table)
     elif not our_db_table['gender']:
