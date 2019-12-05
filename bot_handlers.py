@@ -67,6 +67,7 @@ def pre_change_name(message, out_db_table):
     keyboard = types.ReplyKeyboardMarkup(True)
     keyboard.row("Отмена")
     bot.send_message(message.chat.id, 'Введите имя:', reply_markup=keyboard)
+    bot.send_message(message.chat.id, message.text)
     if message.text == "Отмена":
         main_menu(message)
     else:
