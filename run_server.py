@@ -19,7 +19,7 @@ def sender():
     return redirect('/admin')
 
 
-@server.route('/' + TOKEN, methods=['POST', 'GET'])
+@server.route('/' + TOKEN, methods=['POST'])
 def get_message():
     bot.process_new_updates([types.Update.de_json(flask.request.stream.read().decode("utf-8"))])
     return "!", 200
