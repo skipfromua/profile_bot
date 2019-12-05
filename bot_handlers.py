@@ -71,10 +71,12 @@ def main_menu(message):
 
 
 def change_name(message, our_db_table):
+    keyboard = types.ReplyKeyboardMarkup()
+    keyboard.row()
     our_db = our_db_table.copy()
     our_db['name'] = None
     users_db.update(our_db_table, { "$set": our_db })
-    bot.send_message(message.chat.id, 'Введите имя:', reply_markup=None)
+    bot.send_message(message.chat.id, 'Введите имя:', reply_markup=keyboard)
 
 
 def change_age(message, our_db_table):
