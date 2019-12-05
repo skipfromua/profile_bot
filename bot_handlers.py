@@ -87,7 +87,8 @@ def change_gender(message):
     keyboard.row('Отмена')
     bot.send_message(message.chat.id, "Хотите изменить пол?", reply_markup=keyboard)
 
-def conformation(gender):
+def conformation(message, gender):
+    bot.send_message(message.chat.id, "Хотите изменить пол?", reply_markup=keyboard)
     if gender == "Мужчина":
         users_db.update({ "gender": gender }, { "$set": { "gender": "Женщина" } })
     else:
@@ -167,7 +168,7 @@ def catcher_of_text(message):
     elif message.text == "Отмена":
         main_menu(message)
     elif message.text == "Сменить":
-        conformation(our_db_table['gender'])
+        conformation(message, our_db_table['gender'])
 
 
 
