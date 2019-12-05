@@ -74,8 +74,7 @@ def change_name(message, our_db_table):
 
 def change_age(message, our_db_table):
     keyboard = types.ReplyKeyboardMarkup()
-    cancel_button = types.KeyboardButton(text="Отмена", callback_data="cancel")
-    keyboard.add(cancel_button)
+    keyboard.row("Отмена")
     our_db = our_db_table.copy()
     our_db['age'] = None
     users_db.update(our_db_table, { "$set": our_db })
@@ -166,6 +165,8 @@ def catcher_of_text(message):
         change_age(message, our_db_table)
     elif message.text == "Изменить пол":
         change_gender(message)
+    elif message.text == "Отмена":
+        main_menu(message)
 
 
 
