@@ -151,14 +151,14 @@ def catcher_of_text(message):
         enter_age(message, our_db_table)
     elif not our_db_table['gender']:
         enter_gender(message)
+    elif message.text == "Отмена":
+        main_menu(message)
     elif message.text == "Изменить имя":
         pre_change_name(message, our_db_table)
     elif message.text == "Изменить возраст":
         change_age(message, our_db_table)
     elif message.text == "Изменить пол":
         change_gender(message)
-    elif message.text == "Отмена":
-        main_menu(message)
     elif message.text == "Сменить":
         conformation(message, our_db_table['gender'])
 
