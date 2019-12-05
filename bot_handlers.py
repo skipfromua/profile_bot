@@ -38,7 +38,7 @@ def enter_age(message, our_db_table):
 
 
 def enter_gender(message):
-    if message.text == '' or message.text == '':
+    if message.text == 'Мужской' or message.text == 'Женский':
         users_db.update_one({ 'gender': None }, { "$set": { "gende": message.text } })
     keyboard = types.ReplyKeyboardMarkup()
     keyboard.row('Мужской', 'Женский')
