@@ -14,7 +14,6 @@ def enter_name(message, our_db_table, name=None):
             users_db.update_one(db, {"$set": our_db_table})
             break
     if message.text == 'Отмена':
-        our_db_table["name"] = name
         bot.send_message(message.chat.id, name)
         for db in users_db.find():
             if db['chat_id'] == message.chat.id:
