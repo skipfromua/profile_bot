@@ -37,7 +37,7 @@ def enter_age(message, our_db_table):
 
 
 def enter_gender(message):
-    keyboard = types.InlineKeyboardMarkup()
+    keyboard = types.ReplyKeyboardMarkup()
     male_button = types.InlineKeyboardButton(text="Мужской", callback_data="male_gender")
     female_age_button = types.InlineKeyboardButton(text="Женский", callback_data="female_gender")
     keyboard.add(male_button)
@@ -64,7 +64,7 @@ def change_name(message, our_db_table):
 
 
 def change_age(message, our_db_table):
-    keyboard = types.InlineKeyboardMarkup()
+    keyboard = types.ReplyKeyboardMarkup()
     cancel_button = types.InlineKeyboardButton(text="Отмена", callback_data="cancel")
     keyboard.add(cancel_button)
     our_db = our_db_table.copy()
@@ -74,7 +74,7 @@ def change_age(message, our_db_table):
 
 
 def change_gender(message):
-    keyboard = types.InlineKeyboardMarkup()
+    keyboard = types.ReplyKeyboardMarkup()
     confirm_button = types.InlineKeyboardButton(text="Сменить", callback_data="confirm")
     cancel_button = types.InlineKeyboardButton(text="Отмена", callback_data="cancel")
     keyboard.add(confirm_button)
