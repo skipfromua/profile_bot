@@ -46,7 +46,7 @@ def enter_gender(message):
 
 
 def main_menu(message):
-    keyboard = types.InlineKeyboardMarkup()
+    keyboard = types.ReplyKeyboardMarkup()
     change_name_button = types.InlineKeyboardButton(text="Изменить имя", callback_data="change_name")
     change_age_button = types.InlineKeyboardButton(text="Изменить возраст", callback_data="change_age")
     change_gender_button = types.InlineKeyboardButton(text="Изменить пол", callback_data="change_gender")
