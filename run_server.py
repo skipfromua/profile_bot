@@ -15,8 +15,8 @@ admin = Admin(server)
 @server.route('/admin/' , methods=['POST'])
 def sender():
     for x in users_db.find():
-        bot.send_message(x['chat_id'], "asdas")
-        bot.send_message(x['chat_id'], request.form['text_area'])
+        if request.form['text_area']:
+            bot.send_message(x['chat_id'], request.form['text_area'])
     return redirect('/admin')
 
 
