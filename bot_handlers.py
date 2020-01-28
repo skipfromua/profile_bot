@@ -111,7 +111,7 @@ def conformation(message, gender):
 def delete(message):
     for db in users_db.find():
         if db['chat_id'] == message.chat.id:
-            bot.send_message(message.chat.id, 'Имx`я: {}, возраст: {}, пол: {}'.format(db['name'], db['age'], db['gender']))
+            bot.send_message(message.chat.id, 'Имя: {}, возраст: {}, пол: {}'.format(db['name'], db['age'], db['gender']))
             break
 
 @bot.message_handler(commands=['del'])
@@ -119,10 +119,6 @@ def delete(message):
     keyboard = types.ReplyKeyboardRemove()
     bot.send_message(message.chat.id, 'Cleared', reply_markup=keyboard)
     users_db.delete_many({})
-
-@bot.message_handler(commands=['KtoVika'])
-def answer(message):
-    bot.send_message(message.chat.id, 'Вика та ещё ЗАРАЗА, просто жопа мелкая, ЖОПАААА!!')
 
 @bot.message_handler(commands=['start'])
 # Выполняется, когда пользователь нажимает на start
