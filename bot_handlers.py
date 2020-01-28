@@ -111,7 +111,7 @@ def conformation(message, gender):
 def delete(message):
     for db in users_db.find():
         if db['chat_id'] == message.chat.id:
-            bot.send_message(message.chat.id, 'Имя: {}, возраст: {}, пол: {}'.format(db['name'], db['age'], db['gender']))
+            bot.send_message(message.chat.id, 'Имsя: {}, возраст: {}, пол: {}'.format(db['name'], db['age'], db['gender']))
             break
 
 @bot.message_handler(commands=['del'])
