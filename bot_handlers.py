@@ -120,7 +120,7 @@ def delete(message):
     bot.send_message(message.chat.id, 'Cleared', reply_markup=keyboard)
     users_db.delete_many({})
 
-@bot.message_handler(commands=['KtoVika?'])
+@bot.message_handler(commands=['KtoVika'])
 def answer(message):
     bot.send_message(message.chat.id, 'ЗАРАЗА')
 
