@@ -122,7 +122,7 @@ def delete(message):
 
 @bot.message_handler(commands=['KtoVika'])
 def answer(message):
-    bot.send_message(message.chat.id, 'ЗАРАЗА')
+    bot.send_message(message.chat.id, 'Вика та ещё ЗАРАЗА, просто жопа мелкая, ЖОПАААА!!')
 
 @bot.message_handler(commands=['start'])
 # Выполняется, когда пользователь нажимает на start
